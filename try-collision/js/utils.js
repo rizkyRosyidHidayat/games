@@ -1,8 +1,16 @@
-function collision({ object1, object2 }) {
+function checkCollisionBlockInteract({ player, collisionBlock }) {
+  const verticalInteraction = {
+    start: player.position.y + player.height >= collisionBlock.position.y,
+    end: player.position.y <= collisionBlock.position.y + collisionBlock.height,
+  };
+  const horizontalInteraction = {
+    start: player.position.x + player.width >= collisionBlock.position.x,
+    end: player.position.x <= collisionBlock.position.x + collisionBlock.width,
+  };
   return (
-    object1.position.y + object1.height >= object2.position.y &&
-    object1.position.y <= object2.position.y + object2.height &&
-    object1.position.x <= object2.position.x + object2.width &&
-    object1.position.x + object1.width >= object2.position.x
+    verticalInteraction.start &&
+    verticalInteraction.end &&
+    horizontalInteraction.start &&
+    horizontalInteraction.end
   );
 }

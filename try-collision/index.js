@@ -1,5 +1,5 @@
-const canvas = document.querySelector('canvas');
-const c = canvas.getContext('2d');
+const canvas = document.querySelector("canvas");
+const c = canvas.getContext("2d");
 
 canvas.width = innerWidth;
 canvas.height = innerHeight;
@@ -33,7 +33,7 @@ const bgCloud = new Sprites({
     x: 0,
     y: 0,
   },
-  imageSrc: './img/bg-cloud.png',
+  imageSrc: "./img/bg-cloud.png",
   scale: 2,
 });
 const bgCastle = new Sprites({
@@ -41,7 +41,7 @@ const bgCastle = new Sprites({
     x: 0,
     y: 0,
   },
-  imageSrc: './img/bg-castle.png',
+  imageSrc: "./img/bg-castle.png",
   scale: 2,
 });
 const map = new Sprites({
@@ -49,7 +49,7 @@ const map = new Sprites({
     x: 0,
     y: 0,
   },
-  imageSrc: './img/map.png',
+  imageSrc: "./img/map.png",
   scale: 1,
 });
 
@@ -75,99 +75,11 @@ floorCollisions2D.forEach((row, y) => {
 });
 
 const gravity = 0.3;
-class Player {
-  constructor({ position, collisionBlocks }) {
-    this.position = position;
-    this.velocity = {
-      x: 0,
-      y: 1,
-    };
-    this.collisionBlocks = collisionBlocks;
-    this.hitbox = {
-      position: {
-        x: this.position.x,
-        y: this.position.y,
-      },
-      width: 10,
-      height: 10,
-    };
-  }
-
-  draw() {
-    c.fillStyle = 'rgba(255, 0, 0)';
-    c.fillRect(this.position.x, this.position.y, 50, 50);
-  }
-
-  applyGravity() {
-    this.velocity.y += gravity;
-    this.position.y += this.velocity.y;
-  }
-
-  updateHitbox() {
-    this.hitbox = {
-      position: {
-        x: this.position.x + 50, // 50 = width player
-        y: this.position.y + 50, // 50 = height player
-      },
-      width: 0,
-      height: 0,
-    };
-  }
-
-  checkForVerticalCollisions() {
-    for (let i = 0; i < this.collisionBlocks.length; i++) {
-      const collisionBlock = this.collisionBlocks[i];
-      if (collision({ object1: this.hitbox, object2: collisionBlock })) {
-        if (this.velocity.y > 0) {
-          this.velocity.y = 0;
-          this.position.y = collisionBlock.position.y - 50;
-          break;
-        }
-      }
-    }
-  }
-
-  checkForHorizontalCollisions() {
-    for (let i = 0; i < this.collisionBlocks.length; i++) {
-      const collisionBlock = this.collisionBlocks[i];
-      console.log(
-        collision({
-          object1: this.hitbox,
-          object2: collisionBlock,
-        })
-      );
-      if (
-        collision({
-          object1: this.hitbox,
-          object2: collisionBlock,
-        })
-      ) {
-        if (this.velocity.x > 0) {
-          this.velocity.x = 0;
-
-          this.position.x = collisionBlock.position.x - 50;
-          break;
-        }
-      }
-    }
-  }
-
-  update() {
-    this.draw();
-
-    this.position.x += this.velocity.x;
-    this.updateHitbox();
-    this.checkForHorizontalCollisions();
-    this.applyGravity();
-    this.updateHitbox();
-    this.checkForVerticalCollisions();
-  }
-}
 
 const player = new Player({
   position: {
-    x: 0,
-    y: 100,
+    x: 100,
+    y: 0,
   },
   collisionBlocks: collisionBlocks,
 });
@@ -186,30 +98,27 @@ const keys = {
 
 function animate() {
   window.requestAnimationFrame(animate);
-  c.fillStyle = 'white';
+  c.fillStyle = "white";
   c.fillRect(0, 0, canvas.width, canvas.height);
 
-  c.save();
   bgCloud.draw();
   bgCastle.draw();
+  c.save();
   if (map.height) c.translate(0, canvas.height - map.height);
   map.draw();
-
-  collisionBlocks.forEach((collisionBlock) => {
-    collisionBlock.update();
-  });
 
   player.update();
   player.velocity.x = 0;
 
-  if (keys.w.presed) {
-    if (player.position.y > 90) player.velocity.y = -6;
+  if (keys.w.presed && !player.jumping) {
+    player.velocity.y = -11;
+    player.jumping = true;
   }
 
   if (keys.d.presed) {
-    player.velocity.x = 2;
+    player.velocity.x = 6;
   } else if (keys.a.presed) {
-    player.velocity.x = -2;
+    player.velocity.x = -6;
   }
 
   c.restore();
@@ -217,15 +126,15 @@ function animate() {
 
 animate();
 
-window.addEventListener('keydown', (event) => {
+window.addEventListener("keydown", (event) => {
   switch (event.key) {
-    case 'w':
+    case "w":
       keys.w.presed = true;
       break;
-    case 'd':
+    case "d":
       keys.d.presed = true;
       break;
-    case 'a':
+    case "a":
       keys.a.presed = true;
       break;
 
@@ -234,15 +143,15 @@ window.addEventListener('keydown', (event) => {
   }
 });
 
-window.addEventListener('keyup', (event) => {
+window.addEventListener("keyup", (event) => {
   switch (event.key) {
-    case 'w':
+    case "w":
       keys.w.presed = false;
       break;
-    case 'd':
+    case "d":
       keys.d.presed = false;
       break;
-    case 'a':
+    case "a":
       keys.a.presed = false;
       break;
 
