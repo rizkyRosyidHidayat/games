@@ -3,19 +3,37 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>try merge</title>
-    <style>
-      body {
-        margin: 0px;
-        overflow: hidden;
-      }
-      body::-webkit-scrollbar {
-        display: none;
-      }
-    </style>
+    <title>Holy Grail Mini Game</title>
+    <link
+      rel="shortcut icon"
+      href="./assets/img/favicon.svg"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="./assets/style.css" />
   </head>
   <body>
-    <canvas></canvas>
+    <div class="container">
+      <img src="./assets/img/logo.png" height="74px" alt="logo" />
+      <ul class="controller">
+        <li>
+          <div class="key">W</div>
+          <p class="desc">Jump</p>
+        </li>
+        <li>
+          <div class="key">A</div>
+          <p class="desc">Run Left</p>
+        </li>
+        <li>
+          <div class="key">D</div>
+          <p class="desc">Run Right</p>
+        </li>
+        <li>
+          <div class="key">E</div>
+          <p class="desc">Attack</p>
+        </li>
+      </ul>
+      <canvas></canvas>
+    </div>
 
     <script src="./js/store/collisions.js"></script>
     <script src="./js/store/index.js"></script>

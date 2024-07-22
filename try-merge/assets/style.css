@@ -1,0 +1,46 @@
+body {
+  margin: 0px;
+  overflow: hidden;
+  background-color: #0e1327;
+}
+
+.container {
+  width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 72px 32px 32px 32px;
+  background-image: url("./img/bg-pattern.svg");
+}
+
+.controller {
+  display: flex;
+  padding: 0px;
+  list-style: none;
+  color: #fff;
+  gap: 24px;
+}
+
+.controller li {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.controller .key {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  border-radius: 4px;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.controller .desc {
+  margin: 0px;
+  letter-spacing: 3px;
+}
